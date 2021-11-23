@@ -3,5 +3,5 @@
     <string name="enter_username">Email</string>
     <string name="enter_password">Password</string>
     <string name="login_button_message">log in</string>
-    <string name="welcome_message">:)</string>
+    <string name="welcome_message">Log in</string>
 </resources>
