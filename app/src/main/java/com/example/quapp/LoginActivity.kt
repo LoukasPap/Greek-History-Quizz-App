@@ -15,7 +15,12 @@ class LoginActivity : AppCompatActivity() {
         fab.setOnClickListener{
             val register_screen = Intent(this, RegisterActivity::class.java)
             startActivity(register_screen)
+            overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_up)
         }
 
+    }
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_up)
     }
 }
