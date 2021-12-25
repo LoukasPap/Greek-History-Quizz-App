@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/create_profile_background"
+    tools:context=".CreateProfileActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+
+            android:orientation="vertical"
+            android:gravity="center"
+
+            android:background="@drawable/glass_background"
+
+            app:layout_constraintVertical_bias="0.5"
+            android:paddingTop="0dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/selectUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/sniglet"
+
+                    android:gravity="center"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_bias="0.1"
+
+
+                    android:text="Set your username"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:layout_marginBottom="0dp"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/usernameField"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintVertical_bias="0.05"
+                    app:layout_constraintTop_toBottomOf="@id/selectUsername"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+
+                    app:hintTextColor="@color/complementary"
+                    android:textAlignment="center"
+
+                    app:boxStrokeColor="@color/complementary"
+                    app:boxCornerRadiusTopEnd="13dp"
+                    app:boxCornerRadiusTopStart="13dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxStrokeWidth="2dp"
+                    app:boxStrokeWidthFocused="3dp"
+
+                    app:endIconMode="clear_text"
+                    app:endIconTint="@color/complementary"
+                    app:hintEnabled="false">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/usernameInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/rubik"
+                            android:textSize="20sp"
+                            android:paddingBottom="20dp"
+                            android:text=""
+                            android:gravity="center_horizontal"
+
+                            android:imeActionLabel="Set username"
+                            android:inputType="text"
+                            android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/selectAvatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/sniglet"
+
+                    android:gravity="center"
+
+                    android:text="Select an avatar"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+
+                    app:layout_constraintVertical_bias="0.07"
+                    app:layout_constraintTop_toBottomOf="@id/usernameField"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/avatar_recycler_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="170dp"
+
+                    android:clipChildren="false"
+                    android:paddingStart="50dp"
+                    android:paddingEnd="50dp"
+
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    tools:itemCount="4"
+
+                    app:layout_constraintVertical_bias="0.1"
+                    app:layout_constraintTop_toBottomOf="@id/selectAvatar"
+                    app:layout_constraintStart_toStartOf="@id/usernameField"
+                    app:layout_constraintEnd_toEndOf="@id/usernameField"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/finishButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:cornerRadius="20dp"
+                    android:backgroundTint="@color/complementary"
+                    android:text="Finish"
+                    android:textColor="@color/white"
+                    app:layout_constraintVertical_bias="0.45"
+                    app:rippleColor="@color/black"
+
+                    app:layout_constraintTop_toBottomOf="@id/avatar_recycler_view"
+                    app:layout_constraintStart_toStartOf="@id/avatar_recycler_view"
+                    app:layout_constraintEnd_toEndOf="@id/avatar_recycler_view"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
