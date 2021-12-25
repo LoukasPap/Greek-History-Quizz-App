@@ -4,18 +4,25 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-<!-- newly added -->
+<!--  -->
+    <color name="primary">#03A8F4</color>
+    <color name="complementary">#F44F03</color>
 
 <!--    blues -->
     <color name="queen_blue">#527593</color>
     <color name="greek_blue">#001489</color>
     <color name="aero_blue">#daffef</color>
+    <color name="opal">#C6D8D3</color>
 
     <!-- grays -->
     <color name="gainsboro">#E0E0E2</color>
     <color name="light_slate_gray">#778899</color>
     <color name="dim_gray">#696771</color>
 
-    <color name="mtrl_textinput_default_box_stroke_color">@color/white</color>
+    <color name="mtrl_textinput_default_box_stroke_color">@color/complementary</color>
+
+
+<!-- blacks -->
+    <color name="dark_liver">#474350</color>
 
 </resources>
