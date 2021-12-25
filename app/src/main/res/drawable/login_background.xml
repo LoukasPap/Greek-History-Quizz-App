@@ -1,13 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle" >
-
-    <gradient
-        android:angle="-90"
-        android:startColor="@color/greek_blue"
-        android:endColor="@color/white"
-        android:type="linear" />
-
-    <corners
-        android:radius="0dp"/>
-</shape>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="375dp"
+    android:height="812dp"
+    android:viewportWidth="375"
+    android:viewportHeight="812">
+  <path
+      android:pathData="M0,0h375v812h-375z"
+      android:fillColor="#ffffff"/>
+  <path
+      android:pathData="M0,812C38.5,781.1 77.1,750.1 96.3,721.5C115.6,692.8 115.6,666.3 118.5,625.7C121.4,585 127.2,530.2 154.6,508.6C181.9,487.1 230.8,498.8 271.2,492.4C311.5,486.1 343.3,461.5 375,437L375,812Z"
+      android:fillColor="#03A9F4"/>
+  <path
+      android:pathData="M375,0C347.9,30.9 320.9,61.8 312.9,101.7C304.9,141.5 316.1,190.3 296.1,215.1C276.1,240 225,240.9 192.2,264.5C159.4,288.2 144.9,334.5 115.9,356.6C86.9,378.8 43.4,376.9 0,375L0,0Z"
+      android:fillColor="#03A9F4"/>
+</vector>

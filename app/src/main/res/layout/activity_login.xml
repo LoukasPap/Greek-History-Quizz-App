@@ -5,98 +5,106 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/login_background"
     tools:context=".LoginActivity">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/welcome_message"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:gravity="start"
+        android:fontFamily="@font/sniglet"
 
-        android:text="@string/welcome_message"
-        android:fontFamily="@font/rubik"
-        android:textColor="@color/greek_blue"
-        android:textSize="30sp"
+        android:gravity="center"
+        android:text="matheto"
+        android:textColor="@color/white"
+        android:textSize="40sp"
 
-        app:layout_constraintVertical_bias="0.30"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.20" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailLoginField"
-        android:layout_width="0dp"
+
+    <LinearLayout
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:endIconMode="clear_text"
-        app:endIconTint="@color/white"
+        android:background="@drawable/glass_background"
 
-        android:hint="@string/enter_username"
-        android:textColorHint="@color/white"
-        app:hintTextColor="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="40dp"
+        android:paddingBottom="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
 
-        app:boxBackgroundColor="@color/greek_blue"
-        app:boxCornerRadiusBottomEnd="25dp"
-        app:boxCornerRadiusBottomStart="25dp"
-        app:boxCornerRadiusTopEnd="25dp"
-        app:boxCornerRadiusTopStart="25dp"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-
+        app:layout_constraintVertical_bias="0.1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/welcome_message"
-        app:layout_constraintStart_toStartOf="@+id/welcome_message"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_message"
-        app:layout_constraintVertical_bias="0.05">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/welcome_message">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailInput"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLoginField"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-            android:fontFamily="@font/rubik"
-            android:imeActionLabel="Sign in"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/white" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="@string/enter_username"
 
-    <RelativeLayout
-        android:id="@+id/pwd_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:textColorHint="@color/black"
 
-        app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintTop_toBottomOf="@id/emailLoginField"
-        app:layout_constraintStart_toStartOf="@id/emailLoginField"
-        app:layout_constraintEnd_toEndOf="@id/emailLoginField"
-        app:layout_constraintBottom_toBottomOf="parent">
+            app:boxCornerRadiusBottomEnd="13dp"
+            app:boxCornerRadiusBottomStart="13dp"
+            app:boxCornerRadiusTopEnd="13dp"
+            app:boxCornerRadiusTopStart="13dp"
+
+            app:boxStrokeColor="@color/complementary"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
+
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/complementary"
+
+            app:hintTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik"
+
+                android:imeActionLabel="Sign in"
+                android:inputType="textEmailAddress"
+                android:text="test@hotmail.com"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordLoginField"
-            android:layout_width="175dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+            android:paddingBottom="15dp"
+            android:textColorHint="@color/black"
+            app:hintTextColor="@color/black"
+
+            app:boxCornerRadiusBottomEnd="13dp"
+            app:boxCornerRadiusBottomStart="13dp"
+            app:boxCornerRadiusTopEnd="13dp"
+            app:boxCornerRadiusTopStart="13dp"
+            app:boxStrokeColor="@color/complementary"
+            app:boxStrokeWidth="2dp"
+            app:boxStrokeWidthFocused="3dp"
 
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/white"
+            app:passwordToggleTint="@color/complementary">
 
-            android:textColorHint="@color/white"
-            app:hintTextColor="@color/white"
-
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical"
-
-            app:boxBackgroundColor="@color/greek_blue"
-            app:boxCornerRadiusBottomEnd="25dp"
-            app:boxCornerRadiusBottomStart="25dp"
-            app:boxCornerRadiusTopEnd="25dp"
-            app:boxCornerRadiusTopStart="25dp"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordInput"
                 android:layout_width="match_parent"
@@ -105,80 +113,57 @@
                 android:fontFamily="@font/rubik"
                 android:hint="@string/enter_password"
                 android:imeActionLabel="Sign in"
+                android:text="yeppwdbro"
                 android:inputType="textPassword"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loginButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/passwordLoginField"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_toEndOf="@id/passwordLoginField"
-            android:layout_toRightOf="@id/passwordLoginField"
+            style="@style/Widget.MaterialComponents.Button"
+
+            android:backgroundTint="@color/complementary"
 
             android:fontFamily="@font/rubik"
             android:insetLeft="5dp"
             android:insetTop="0dp"
 
             android:insetBottom="0dp"
-            android:text="@string/login_button_message"
+            android:text="Sign in"
             android:textAllCaps="false"
-            android:textColor="@color/greek_blue"
+            android:textColor="@color/white"
 
-            app:cornerRadius="25dp"
-            app:rippleColor="@color/greek_blue"
-            app:strokeColor="@color/greek_blue"
-            app:strokeWidth="2dp" />
+            app:cornerRadius="13dp"
+            app:rippleColor="@color/greek_blue"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
-    <ImageView
-        android:id="@+id/goto_register_img"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/ic_goto_register_form"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/goto_reg_fab"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
 
+
+        android:text="Sign up"
+        android:textColor="@color/complementary"
+        android:textAllCaps="false"
+        android:contentDescription="Navigate to register form"
+
+        app:backgroundTint="@color/white"
+
+        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pwd_btn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="1"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/login_form"
+        app:rippleColor="@color/complementary"
 
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pwd_btn"
-        >
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/goto_reg_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Navigate to register form"
-
-            android:layout_gravity="bottom|center"
-            android:layout_marginBottom="20dp"
-
-            android:src="@drawable/ic_down_arrow"
-            app:rippleColor="@color/greek_blue"
-            app:tint="@color/greek_blue"
-            app:backgroundTint="@color/white"
-
-            android:outlineSpotShadowColor="@android:color/transparent"
-            android:outlineAmbientShadowColor="@android:color/transparent"
-
-            />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+        android:backgroundTint="@android:color/transparent"
+        app:cornerRadius="20dp"
+        app:strokeColor="@color/complementary"
+        app:strokeWidth="2dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
