@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Quapp">
         <activity
+            android:name=".menu_dashboard.UserMenu"
+            android:exported="false"/>
+        <activity
             android:name=".CreateProfileActivity"
             android:exported="false"/>
 <!--            android:theme="@style/Theme.MaterialComponents" -->
