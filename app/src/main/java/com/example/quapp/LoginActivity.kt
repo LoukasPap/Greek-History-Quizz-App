@@ -7,9 +7,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.quapp.menu_dashboard.UserMenu
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
@@ -19,9 +21,11 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var gotoRegisterActivityButton: View
 
-    private lateinit var auth: FirebaseAuth
+    var isFilled = false
 
-    private var ra: RegisterActivity? = null
+    private lateinit var auth: FirebaseAuth
+    private val db = Firebase.firestore
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +33,16 @@ class LoginActivity : AppCompatActivity() {
         initUI()
 
         auth = Firebase.auth
+
         loginButton.setOnClickListener {
             authenticateWithFirebase(emailField.text.toString(), passwordField.text.toString())
+            isRegistrationCompleted() { result ->
+                if (result) {
+                    gotoMenuActivity()
+                } else {
+                    gotoCreateProfileActivity()
+                }
+            }
         }
 
         gotoRegisterActivityButton.setOnClickListener {
@@ -38,27 +50,33 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun authenticateWithFirebase(email: String, password: String) {
-        val currentUser = auth.currentUser
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        Log.d("Login", "signInWithEmail:success")
-                        val user = auth.currentUser
-                        gotoMenuActivity(user!!.uid)
-                    } else {
-                        Log.w("Login", "signInWithEmail:failure", task.exception)
-                        Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+    private fun isRegistrationCompleted(callback:(Boolean) -> Unit){
+        val docRef = db.collection("users").document(auth.currentUser?.uid.toString())
+        docRef.get()
+            .addOnSuccessListener { documentSnapShot ->
+                val username = documentSnapShot.data?.getValue("username").toString()
+                if (username.isEmpty()) {
+                    Log.d("Login", "1++++ ${documentSnapShot.data!!.getValue("username")}")
+                    callback(false)
+                } else {
+                    Log.d("Login", "2++++ ${documentSnapShot.data!!.getValue("username")}")
+                    callback(true)
                 }
-
+            }
     }
 
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-
+    private fun authenticateWithFirebase(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Log.d("Login", "signInWithEmail:success | ${auth.currentUser?.uid}")
+//                    id = auth.currentUser?.uid
+                } else {
+                    Log.w("Login", "signInWithEmail:failure", task.exception)
+                    Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
     }
 
     private fun initUI() {
@@ -68,9 +86,13 @@ class LoginActivity : AppCompatActivity() {
         gotoRegisterActivityButton = findViewById(R.id.goto_reg_fab)
     }
 
-    private fun gotoMenuActivity(uid: String) {
-        val menuScreen = Intent(this, MenuActivity::class.java)
-        menuScreen.putExtra("userid", uid)
+    private fun gotoCreateProfileActivity() {
+        val menuScreen = Intent(this, CreateProfileActivity::class.java)
+        startActivity(menuScreen)
+    }
+
+    private fun gotoMenuActivity() {
+        val menuScreen = Intent(this, UserMenu::class.java)
         startActivity(menuScreen)
     }
 
