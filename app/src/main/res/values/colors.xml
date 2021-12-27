@@ -6,12 +6,10 @@
 
 <!--  -->
     <color name="primary">#03A8F4</color>
+    <color name="colorPrimaryDark">#03569b</color>
     <color name="complementary">#F44F03</color>
 
 <!--    blues -->
-    <color name="queen_blue">#527593</color>
-    <color name="greek_blue">#001489</color>
-    <color name="aero_blue">#daffef</color>
     <color name="opal">#C6D8D3</color>
 
     <!-- grays -->

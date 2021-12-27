@@ -13,24 +13,21 @@
         android:theme="@style/Theme.Quapp">
         <activity
             android:name=".menu_dashboard.UserMenu"
-            android:exported="false"/>
+            android:exported="false" />
+
         <activity
             android:name=".CreateProfileActivity"
             android:exported="false"/>
-<!--            android:theme="@style/Theme.MaterialComponents" -->
-<!--            />-->
+
         <activity
             android:name=".MenuActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+            android:exported="false"/>
         <activity
             android:name=".RegisterActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+            android:exported="false"/>
         <activity
             android:name=".LoginActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
