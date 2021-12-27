@@ -79,7 +79,7 @@
 
                 android:imeActionLabel="Sign in"
                 android:inputType="textEmailAddress"
-                android:text="test@hotmail.com"
+                android:text="brb@gmail.com"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,7 +113,7 @@
                 android:fontFamily="@font/rubik"
                 android:hint="@string/enter_password"
                 android:imeActionLabel="Sign in"
-                android:text="yeppwdbro"
+                android:text="123456"
                 android:inputType="textPassword"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -136,7 +136,7 @@
             android:textColor="@color/white"
 
             app:cornerRadius="13dp"
-            app:rippleColor="@color/greek_blue"/>
+            app:rippleColor="@color/dark_liver"/>
 
     </LinearLayout>
 
