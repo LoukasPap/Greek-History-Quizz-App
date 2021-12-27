@@ -17,7 +17,6 @@ import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var username: TextInputEditText
     private lateinit var email: TextInputEditText
     private lateinit var password : TextInputEditText
     private lateinit var isGreek : CheckBox
@@ -33,53 +32,45 @@ class RegisterActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         registerButton.setOnClickListener {
-            registerUser("Jim", stringify(email), stringify(password), isGreek.isChecked)
-//            updateUI()
-
+            registerUser(stringify(email), stringify(password))
         }
+
         fab.setOnClickListener{
             gotoLoginForm()
         }
 
     }
-    private fun registerUser(username: String, email: String, password: String, isGreek: Boolean) {
-        Log.d("HERE", "Got in")
+    private fun registerUser(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email,password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-
                     val user = auth.currentUser
                     val uid = user!!.uid
-                    val userInfo: User = User(username, email, password, isGreek)
+
+                    val userInfo = User(email=email, password=password)
                     writeUserToFirestore(userInfo, uid)
-                    Toast.makeText(this, "$username - $email - $password - $isGreek", Toast.LENGTH_LONG).show()
+
+                    val createProfileScreen = Intent(this, CreateProfileActivity::class.java)
+                    startActivity(createProfileScreen)
+
                 } else {
                     Log.w("INS", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
 
                 }
             }
-
     }
 
     private fun initUIComponents() {
-//        username = findViewById(R.id.username_field)
         email = findViewById(R.id.email_field)
         password = findViewById(R.id.passwordLoginField)
         isGreek = findViewById(R.id.isGreek_field);
         registerButton = findViewById(R.id.register_button)
         fab = findViewById(R.id.goto_log_fab)
-
-    }
-
-    private fun updateUI() {
-        val menuScreen = Intent(this, MenuActivity::class.java)
-        startActivity(menuScreen)
     }
 
     private fun writeUserToFirestore(userInfo: User, docId: String) {
         Log.d("HERE", "FIRESTORE ")
-
         val db = Firebase.firestore
         db.collection("users").document(docId).set(userInfo)
     }
@@ -89,6 +80,7 @@ class RegisterActivity : AppCompatActivity() {
             is TextInputEditText -> return x.text.toString()
             is Int -> x.toString()
             is Boolean -> x.toString()
+            is CheckBox -> x.isChecked.toString()
             else -> {
                 throw ClassNotFoundException()
             }
