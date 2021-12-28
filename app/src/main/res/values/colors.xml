@@ -23,4 +23,9 @@
 <!-- blacks -->
     <color name="dark_liver">#474350</color>
 
+
+<!--  answer  -->
+    <color name="correct">#0EE37B</color>
+    <color name="wrong">#E30E1C</color>
+
 </resources>

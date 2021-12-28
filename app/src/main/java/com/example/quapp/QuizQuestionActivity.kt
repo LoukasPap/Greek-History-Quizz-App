@@ -60,20 +60,19 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun checkIfCorrect(v: View?) {
         val question = questionList?.get(currentPos - 1)
-        disableClicks()
         when (givenAnswer){
             null -> {
                 // check if he answered so as to continue, or if he skipped
                 if (didAnswer) {
-                    didAnswer = false
                     checkForNextQuestion()
-                    skipBtn.text = "Skip"
+                    revertClickability()
                 } else{
                     question?.skipped = true
                     Log.d("quiz", "CHOSE TO SKIP\n--${question?.id} | ${question?.text}")
                     checkForNextQuestion()
                 }
             } else -> {
+                revertClickability()
                 if (givenAnswer == question!!.correctAnswer) {
                     correctAnswers.add(question.id) // add correct answer
                     Log.d("quiz", "CHOSE CORRECT")
@@ -92,12 +91,11 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun disableClicks() {
-        trueBtn.isClickable = false
-        falseBtn.isClickable = false
-        skipBtn.text = "Continue"
-        didAnswer = true
-
+    private fun revertClickability() {
+        trueBtn.isClickable = !trueBtn.isClickable
+        falseBtn.isClickable = !falseBtn.isClickable
+        skipBtn.text = if (skipBtn.text=="Skip") {"Continue"} else {"Skip"}
+        didAnswer = !didAnswer
     }
 
     private fun viewCorrectAnswer(v: View?, color: Int) {
