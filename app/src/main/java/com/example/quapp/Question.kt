@@ -4,5 +4,6 @@ data class Question(
     var id: Int,
     var text: String,
     var correctAnswer: Boolean,
-    var skip: Boolean = false,
-)
+    var skipped: Boolean = false,
+    var points: Int = 100,
+    )
