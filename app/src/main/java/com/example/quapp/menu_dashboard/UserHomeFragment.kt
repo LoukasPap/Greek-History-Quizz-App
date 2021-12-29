@@ -1,5 +1,6 @@
 package com.example.quapp.menu_dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.example.quapp.QuizQuestionActivity
 import com.example.quapp.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -20,6 +23,7 @@ class UserHomeFragment : Fragment() {
     private lateinit var avatar: ImageView
     private lateinit var username: TextView
     private lateinit var level: TextView
+    private lateinit var card: CardView
 
     private lateinit var userid: String
 
@@ -42,9 +46,15 @@ class UserHomeFragment : Fragment() {
         avatar = view.findViewById(R.id.avatarView)
         username = view.findViewById(R.id.usernameView)
         level = view.findViewById(R.id.levelView)
+        card = view.findViewById(R.id.cardView)
 
         userid = authenticate()
         updateUI(userid)
+
+        card.setOnClickListener {
+            val startGame = Intent(activity, QuizQuestionActivity::class.java)
+            startActivity(startGame)
+        }
     }
 
     private fun updateUI(uid: String) {
@@ -73,12 +83,12 @@ class UserHomeFragment : Fragment() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
-        if (currentUser != null) {
+        return if (currentUser != null) {
             Log.d("menu", "UID IS: ${auth.currentUser?.uid}")
-            return currentUser.uid
+            currentUser.uid
         } else {
             Log.d("menu", "Not signed in")
-            return ""
+            ""
         }
     }
 }

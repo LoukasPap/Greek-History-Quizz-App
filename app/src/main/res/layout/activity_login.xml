@@ -135,6 +135,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
 
+            android:shadowRadius="13"
             app:cornerRadius="13dp"
             app:rippleColor="@color/dark_liver"/>
 
