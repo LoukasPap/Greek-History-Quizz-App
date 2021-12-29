@@ -9,6 +9,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import java.util.*
 
 class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -18,11 +24,17 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var falseBtn: MaterialButton
     private lateinit var skipBtn: MaterialButton
 
+    private lateinit var auth: FirebaseAuth
+    private val db = Firebase.firestore
+
     private var currentPos = 1
     private var questionList : ArrayList<Question>? = null
     private var givenAnswer: Boolean? = null
 
+//    variables for Match model
     private var correctAnswers = mutableListOf<Int>()
+    private var allQuestions = mutableListOf<Int>()
+
     private var didAnswer = false
 
 
@@ -30,8 +42,14 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_question)
         initUI()
+        auth = Firebase.auth
 
+
+//        store all questions
         questionList = Constants.getQuestions()
+        for (n in questionList!!){
+            allQuestions.add(n.id)
+        }
         setQuestion()
 
         trueBtn.setOnClickListener(this)
@@ -102,18 +120,55 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         v?.backgroundTintList = ContextCompat.getColorStateList(this, color);
     }
 
-
     private fun checkForNextQuestion() {
         currentPos++
         when {
             currentPos <= questionList!!.size -> {
                 setQuestion()
             } else -> {
-                Toast.makeText(this, "End of questions", Toast.LENGTH_SHORT).show()
+                val match = Match(auth.currentUser!!.uid, "TF", allQuestions, correctAnswers, calcPoints())
+                uploadToFirestore(match)
+                Log.d("quiz", "POINTS ${calcPoints()}")
             }
         }
     }
 
+    private fun uploadToFirestore(match: Match) {
+        val db = Firebase.firestore
+        val mid = matchIdGenerator()
+
+        db.collection("matches").document(mid).set(match).addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Log.d("quiz", "createMatch:success")
+                } else {
+                    Log.d("quiz", "createUserMatch:failure", task.exception)
+                    Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+        db.collection("users").document(auth.currentUser!!.uid)
+            .update("matches", FieldValue.arrayUnion(mid))
+    }
+
+    private fun matchIdGenerator(): String{
+        val mid = Calendar.getInstance().timeInMillis.toString().plus("TF").plus(auth.currentUser!!.uid)
+        Log.d("quiz", "Datetime ${mid}")
+        return mid
+
+    }
+
+    private fun calcPoints(): Int {
+        var totalPoints = 0
+        correctAnswers.forEach{ ca ->
+            for (i in questionList!!){
+                if (ca==i.id) {
+                    totalPoints += i.points
+                    continue
+                }
+            }
+        }
+        return totalPoints
+    }
 
     private fun setQuestion() {
         val question = questionList!![currentPos - 1]
@@ -124,6 +179,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         questionText.text = question.text
 
         if (currentPos == questionList!!.size) {
+            skipBtn.text = "Finish"
             Toast.makeText(this, "last one", Toast.LENGTH_SHORT).show()
         }
 
