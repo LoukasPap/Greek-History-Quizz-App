@@ -13,4 +13,5 @@ data class User(
     val timestamp: Date? = null,
     var level: Int? = null,
     var avatar: Int? = 0,
+    var matches: MutableList<String> = mutableListOf()
 )
