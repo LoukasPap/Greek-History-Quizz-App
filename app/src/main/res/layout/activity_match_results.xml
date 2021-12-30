@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clipToPadding="true"
+    >
+
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/rubik_medium"
+        android:text="Results"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:paddingTop="10dp"
+
+
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/corrects"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/rubik_light"
+        android:text="Correct:X"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:lineSpacingExtra="15dp"
+
+        android:gravity="center"
+
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0" />
+    <TextView
+        android:id="@+id/wrongs"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/rubik_light"
+        android:text="Wrong:Y"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:lineSpacingExtra="15dp"
+
+        android:gravity="center"
+
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/corrects"
+        app:layout_constraintVertical_bias="0" />
+    <TextView
+        android:id="@+id/points"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="@font/rubik_light"
+        android:text="Points:Z"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:lineSpacingExtra="15dp"
+
+        android:gravity="center"
+
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wrongs"
+        app:layout_constraintVertical_bias="0" />
+
+
+    <LinearLayout
+        android:id="@+id/dialog_actions"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintVertical_bias="0.0"
+        android:paddingTop="20dp"
+
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/corrects"
+        app:layout_constraintStart_toStartOf="@+id/corrects"
+        app:layout_constraintTop_toBottomOf="@+id/points" >
+
+        <ImageView
+            android:id="@+id/replay"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:scaleType="centerInside"
+            android:padding="15dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/white_oval_bg"
+            android:src="@drawable/reload"/>
+
+        <ImageView
+            android:id="@+id/message"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:scaleType="centerInside"
+            android:padding="15dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/white_oval_bg"
+            android:src="@drawable/comment"/>
+
+        <ImageView
+            android:id="@+id/leave"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:scaleType="centerInside"
+            android:padding="15dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/white_oval_bg"
+            android:src="@drawable/sign_out"/>
+
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
