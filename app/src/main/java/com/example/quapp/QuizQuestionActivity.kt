@@ -28,15 +28,15 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     private val db = Firebase.firestore
 
     private var currentPos = 1
-    private var questionList : ArrayList<Question>? = null
+    private var questionList: ArrayList<Question>? = null
     private var givenAnswer: Boolean? = null
+    private var didAnswer = false
 
-//    variables for Match model
+    //    variables for Match model
     private var correctAnswers = mutableListOf<Int>()
     private var allQuestions = mutableListOf<Int>()
 
-    private var didAnswer = false
-
+    private var dialogResults = MatchResultsDialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
 //        store all questions
         questionList = Constants.getQuestions()
-        for (n in questionList!!){
+        for (n in questionList!!) {
             allQuestions.add(n.id)
         }
         setQuestion()
@@ -59,7 +59,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when(v) {
+        when (v) {
             trueBtn -> {
                 givenAnswer = true
                 Log.d("quiz", "$givenAnswer Button")
@@ -78,18 +78,19 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun checkIfCorrect(v: View?) {
         val question = questionList?.get(currentPos - 1)
-        when (givenAnswer){
+        when (givenAnswer) {
             null -> {
                 // check if he answered so as to continue, or if he skipped
                 if (didAnswer) {
                     checkForNextQuestion()
                     revertClickability()
-                } else{
+                } else {
                     question?.skipped = true
                     Log.d("quiz", "CHOSE TO SKIP\n--${question?.id} | ${question?.text}")
                     checkForNextQuestion()
                 }
-            } else -> {
+            }
+            else -> {
                 revertClickability()
                 if (givenAnswer == question!!.correctAnswer) {
                     correctAnswers.add(question.id) // add correct answer
@@ -112,7 +113,11 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     private fun revertClickability() {
         trueBtn.isClickable = !trueBtn.isClickable
         falseBtn.isClickable = !falseBtn.isClickable
-        skipBtn.text = if (skipBtn.text=="Skip") {"Continue"} else {"Skip"}
+        skipBtn.text = when (skipBtn.text) {
+            "Skip" -> "Continue"
+            "Continue" -> "Skip"
+            else -> "Finish"
+        }
         didAnswer = !didAnswer
     }
 
@@ -126,15 +131,24 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
             currentPos <= questionList!!.size -> {
                 setQuestion()
             } else -> {
-                val match = Match(auth.currentUser!!.uid, "TF", allQuestions, correctAnswers, calcPoints())
+                var totalPoints = calcPoints()
+                val match = Match(auth.currentUser!!.uid, "TF", allQuestions, correctAnswers, totalPoints)
                 uploadToFirestore(match)
                 Log.d("quiz", "POINTS ${calcPoints()}")
+
+                var bundle: Bundle = Bundle()
+                bundle.putInt("corrects", correctAnswers.size)
+                bundle.putInt("wrongs", allQuestions.size - correctAnswers.size)
+                bundle.putInt("points", totalPoints)
+                dialogResults.arguments = bundle
+
+                Toast.makeText(this, "Your match results are saved!", Toast.LENGTH_SHORT).show()
+                dialogResults.show(supportFragmentManager, "dialogResults")
             }
         }
     }
 
     private fun uploadToFirestore(match: Match) {
-        val db = Firebase.firestore
         val mid = matchIdGenerator()
 
         db.collection("matches").document(mid).set(match).addOnCompleteListener(this) { task ->
@@ -150,11 +164,9 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
             .update("matches", FieldValue.arrayUnion(mid))
     }
 
-    private fun matchIdGenerator(): String{
-        val mid = Calendar.getInstance().timeInMillis.toString().plus("TF").plus(auth.currentUser!!.uid)
-        Log.d("quiz", "Datetime ${mid}")
-        return mid
-
+    private fun matchIdGenerator(): String {
+        return Calendar.getInstance().timeInMillis.toString().plus("TF")
+            .plus(auth.currentUser!!.uid)
     }
 
     private fun calcPoints(): Int {
