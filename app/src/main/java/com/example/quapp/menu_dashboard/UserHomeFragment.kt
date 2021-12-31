@@ -61,7 +61,7 @@ class UserHomeFragment : Fragment() {
         val docRef = db.collection("users").document(uid)
         docRef.get()
             .addOnSuccessListener { documentSnapShot ->
-                username.text = documentSnapShot.data?.getValue("username").toString().plus(documentSnapShot.data?.getValue("username").toString())
+                username.text = documentSnapShot.data?.getValue("username").toString()
                 level.text = "level ".plus(documentSnapShot.data?.getValue("level").toString())
 
                 var selection = loadSelectedAvatar((documentSnapShot.data?.getValue("avatar")).toString())

@@ -1,5 +1,6 @@
 package com.example.quapp
 
+import ProgressBarAnimation
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -32,7 +33,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     private var givenAnswer: Boolean? = null
     private var didAnswer = false
 
-    //    variables for Match model
+    // variables for Match model
     private var correctAnswers = mutableListOf<Int>()
     private var allQuestions = mutableListOf<Int>()
 
@@ -42,10 +43,11 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_question)
         initUI()
+        progressBar.progress = 0
+
         auth = Firebase.auth
 
-
-//        store all questions
+//      store all questions
         questionList = Constants.getQuestions()
         for (n in questionList!!) {
             allQuestions.add(n.id)
@@ -62,15 +64,14 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
         when (v) {
             trueBtn -> {
                 givenAnswer = true
-                Log.d("quiz", "$givenAnswer Button")
+                animateProgressBar()
             }
             falseBtn -> {
                 givenAnswer = false
-                Log.d("quiz", "$givenAnswer Button")
+                animateProgressBar()
             }
             skipBtn -> {
                 givenAnswer = null
-                Log.d("quiz", "$givenAnswer Button")
             }
         }
         checkIfCorrect(v)
@@ -86,7 +87,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                     revertClickability()
                 } else {
                     question?.skipped = true
-                    Log.d("quiz", "CHOSE TO SKIP\n--${question?.id} | ${question?.text}")
+                    animateProgressBar()
                     checkForNextQuestion()
                 }
             }
@@ -94,12 +95,9 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                 revertClickability()
                 if (givenAnswer == question!!.correctAnswer) {
                     correctAnswers.add(question.id) // add correct answer
-                    Log.d("quiz", "CHOSE CORRECT")
                     viewCorrectAnswer(v, R.color.correct)
                 } else {
-                    Log.d("quiz", "CHOSE WRONG")
                     viewCorrectAnswer(v, R.color.wrong)
-
                     if (v == trueBtn) {
                         viewCorrectAnswer(falseBtn, R.color.correct)
                     } else {
@@ -122,7 +120,7 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun viewCorrectAnswer(v: View?, color: Int) {
-        v?.backgroundTintList = ContextCompat.getColorStateList(this, color);
+        v?.backgroundTintList = ContextCompat.getColorStateList(this, color)
     }
 
     private fun checkForNextQuestion() {
@@ -131,12 +129,11 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
             currentPos <= questionList!!.size -> {
                 setQuestion()
             } else -> {
-                var totalPoints = calcPoints()
+                val totalPoints = calcPoints()
                 val match = Match(auth.currentUser!!.uid, "TF", allQuestions, correctAnswers, totalPoints)
                 uploadToFirestore(match)
-                Log.d("quiz", "POINTS ${calcPoints()}")
 
-                var bundle: Bundle = Bundle()
+                val bundle = Bundle()
                 bundle.putInt("corrects", correctAnswers.size)
                 bundle.putInt("wrongs", allQuestions.size - correctAnswers.size)
                 bundle.putInt("points", totalPoints)
@@ -157,7 +154,6 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
                 } else {
                     Log.d("quiz", "createUserMatch:failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
-
                 }
             }
         db.collection("users").document(auth.currentUser!!.uid)
@@ -187,19 +183,24 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
         defaultOptionsView()
 
-        progressBar.progress = currentPos
-        questionText.text = question.text
-
         if (currentPos == questionList!!.size) {
             skipBtn.text = "Finish"
             Toast.makeText(this, "last one", Toast.LENGTH_SHORT).show()
         }
+        questionText.text = question.text
 
     }
 
+    private fun animateProgressBar() {
+        progressBar.max = questionList!!.size*60
+        var anim = ProgressBarAnimation(progressBar, (currentPos-1)*60F, (currentPos)*60F)
+        anim.duration = 600
+        progressBar.startAnimation(anim)
+    }
+
     private fun defaultOptionsView() {
-        trueBtn.backgroundTintList = ContextCompat.getColorStateList(this, R.color.white);
-        falseBtn.backgroundTintList = ContextCompat.getColorStateList(this, R.color.white);
+        trueBtn.backgroundTintList = ContextCompat.getColorStateList(this, R.color.white)
+        falseBtn.backgroundTintList = ContextCompat.getColorStateList(this, R.color.white)
     }
 
     private fun initUI(){
