@@ -148,7 +148,8 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     private fun uploadToFirestore(match: Match) {
         val mid = matchIdGenerator()
 
-        db.collection("matches").document(mid).set(match).addOnCompleteListener(this) { task ->
+        db.collection("matches").document(mid).set(match)
+            .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("quiz", "createMatch:success")
                 } else {
@@ -192,9 +193,9 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun animateProgressBar() {
-        progressBar.max = questionList!!.size*60
-        var anim = ProgressBarAnimation(progressBar, (currentPos-1)*60F, (currentPos)*60F)
-        anim.duration = 600
+        progressBar.max = questionList!!.size*100
+        var anim = ProgressBarAnimation(progressBar, (currentPos-1)*100F, (currentPos)*100F)
+        anim.duration = 1000
         progressBar.startAnimation(anim)
     }
 
