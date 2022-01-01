@@ -5,28 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".menu_dashboard.UserHistoryFragment"
-    android:background="#00b473">
+    android:background="@color/white">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        >
-
+        android:text="Your history"
+        android:layout_gravity="start|top"
+        android:textSize="40sp"
+        android:textColor="@color/primary"
+        android:fontFamily="@font/rubik_light"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="25dp"
+        />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/avatar_recycler_view"
+        android:id="@+id/match_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
 
         android:clipChildren="false"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
-
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:layout_gravity="center"
         app:spanCount="1"
+
+        tools:context=".menu_dashboard.UserHistoryFragment"
+        tools:listitem="@layout/item_match"
 
         />
 
-    </LinearLayout>
 </FrameLayout>
