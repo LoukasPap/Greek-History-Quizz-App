@@ -4,11 +4,11 @@ import com.google.firebase.firestore.ServerTimestamp
 import java.util.*
 
 data class Match(
-    var playerID: String,
-    var quizType: String,
-    var questions: MutableList<Int>,
-    var correctAnswers: MutableList<Int>,
-    var totalPoints: Int,
+    var playerID: String = "",
+    var quizType: String = "",
+    var questions: MutableList<Int> = mutableListOf(),
+    var correctAnswers: MutableList<Int> = mutableListOf(),
+    var totalPoints: Int = 0,
     @ServerTimestamp
     val timestamp: Date? = null,
 )
