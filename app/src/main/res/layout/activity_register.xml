@@ -147,7 +147,7 @@
         app:layout_constraintVertical_bias="0.05">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/register_input"
+            android:id="@+id/passwordLoginField"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 

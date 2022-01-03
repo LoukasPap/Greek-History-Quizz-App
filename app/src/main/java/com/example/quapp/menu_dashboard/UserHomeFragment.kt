@@ -71,11 +71,12 @@ class UserHomeFragment : Fragment() {
 
     private fun loadSelectedAvatar(selection: String): Int {
         return when(selection.toInt()) {
-            0 -> R.drawable.man1_ma
-            1 -> R.drawable.woman1_5
-            2 -> R.drawable.man2_ma2
-            3 -> R.drawable.woman2_aa1
-            else -> R.drawable.man1_ma
+            0 -> R.drawable.man1__
+            1 -> R.drawable.woman1_2
+            2 -> R.drawable.man2_20
+            3 -> R.drawable.woman2_wb
+            4 -> R.drawable.man3_be
+            else -> R.drawable.woman3_18
         }
     }
 

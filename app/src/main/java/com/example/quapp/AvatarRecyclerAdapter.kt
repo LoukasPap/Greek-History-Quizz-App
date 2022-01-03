@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class AvatarRecyclerAdapter: RecyclerView.Adapter<AvatarRecyclerAdapter.ViewHolder>() {
@@ -18,13 +17,14 @@ class AvatarRecyclerAdapter: RecyclerView.Adapter<AvatarRecyclerAdapter.ViewHold
         mListener = listener
     }
 
-
     private var avatarImagesArray = intArrayOf(
-        R.drawable.man1_ma, R.drawable.woman1_5, R.drawable.man2_ma2, R.drawable.woman2_aa1)
-    private var avatarSelectedArray = arrayOf(false, false, false, false)
+        R.drawable.man1__, R.drawable.woman1_2,
+        R.drawable.man2_20, R.drawable.woman2_wb,
+        R.drawable.man3_be, R.drawable.woman3_18)
 
-    private var imgViews: MutableList<ImageView?> = mutableListOf(null, null, null, null)
-    private var textViews: MutableList<TextView?> = mutableListOf(null, null, null, null)
+    private var avatarSelectedArray = arrayOf(false, false, false, false ,false, false)
+
+    private var imgViews: MutableList<ImageView?> = mutableListOf(null, null, null, null, null, null)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AvatarRecyclerAdapter.ViewHolder {
@@ -81,6 +81,4 @@ class AvatarRecyclerAdapter: RecyclerView.Adapter<AvatarRecyclerAdapter.ViewHold
             }
         }
     }
-
-
 }
