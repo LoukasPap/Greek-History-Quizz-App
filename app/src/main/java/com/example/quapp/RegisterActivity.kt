@@ -69,8 +69,8 @@ class RegisterActivity : AppCompatActivity() {
         if (specialCharactersPattern.containsMatchIn(password)) {
             passwordErrorText += "${passwordErrorCounter++}. Password must only consist of letters, numbers and underscores\n"
         }
-        if (5 > password.length || password.length > 20) {
-            passwordErrorText += "${passwordErrorCounter++}. Password must be 5 to 20 characters long"
+        if (password.length < 6) {
+            passwordErrorText += "${passwordErrorCounter++}. Password should be at least 6 characters"
         }
 
         if (emailErrorText.isNotEmpty()) {
@@ -90,6 +90,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun registerUser(email: String, password: String) {
+
         auth.createUserWithEmailAndPassword(email,password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -104,7 +105,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 } else {
                     Log.w("INS", "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Registration failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -112,7 +113,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun initUI() {
         emailInput = findViewById(R.id.email_input)
         emailField = findViewById(R.id.email_field)
-        passwordInput = findViewById(R.id.register_input)
+        passwordInput = findViewById(R.id.passwordLoginField)
         passwordField = findViewById(R.id.register_field)
         registerBtn = findViewById(R.id.register_button)
         gotoLoginBtn = findViewById(R.id.goto_log_fab)

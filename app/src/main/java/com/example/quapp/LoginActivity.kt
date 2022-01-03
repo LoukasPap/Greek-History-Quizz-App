@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quapp.menu_dashboard.UserMenu
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -16,12 +17,12 @@ import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var emailField: TextInputEditText
-    private lateinit var passwordField: TextInputEditText
-    private lateinit var loginButton: Button
-    private lateinit var gotoRegisterActivityButton: View
-
-    var isFilled = false
+    private lateinit var emailField: TextInputLayout
+    private lateinit var emailInput: TextInputEditText
+    private lateinit var passwordField: TextInputLayout
+    private lateinit var passwordInput: TextInputEditText
+    private lateinit var loginBtn: Button
+    private lateinit var gotoRegisterBtn: View
 
     private lateinit var auth: FirebaseAuth
     private val db = Firebase.firestore
@@ -34,32 +35,51 @@ class LoginActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        loginButton.setOnClickListener {
-            authenticateWithFirebase(emailField.text.toString(), passwordField.text.toString())
-            isRegistrationCompleted() { result ->
-                if (result) {
-                    gotoMenuActivity()
-                } else {
-                    gotoCreateProfileActivity()
+        loginBtn.setOnClickListener {
+            if (!checkFields()) {
+                authenticateWithFirebase(emailInput.text.toString(), passwordInput.text.toString())
+                isLoginCompleted { result ->
+                    if (result) {
+                        gotoMenuActivity()
+                    } else {
+                        gotoCreateProfileActivity()
+                    }
                 }
             }
         }
-
-        gotoRegisterActivityButton.setOnClickListener {
+        gotoRegisterBtn.setOnClickListener {
             gotoRegisterForm()
         }
     }
 
-    private fun isRegistrationCompleted(callback:(Boolean) -> Unit){
+    private fun checkFields(): Boolean {
+        var hasErrors = false
+        val email = emailInput.text.toString()
+        val password = passwordInput.text.toString()
+
+        if (email!!.isEmpty()) {
+            emailField.error = "Email can not be empty\n"
+            hasErrors = true
+        } else {
+            emailField.error = ""
+        }
+        if (password!!.isEmpty()) {
+            passwordField.error = "Password can not be empty\n"
+            hasErrors = true
+        } else {
+            passwordField.error = ""
+        }
+        return hasErrors
+    }
+
+    private fun isLoginCompleted(callback:(Boolean) -> Unit){
         val docRef = db.collection("users").document(auth.currentUser?.uid.toString())
         docRef.get()
             .addOnSuccessListener { documentSnapShot ->
                 val username = documentSnapShot.data?.getValue("username").toString()
                 if (username.isEmpty()) {
-                    Log.d("Login", "1++++ ${documentSnapShot.data!!.getValue("username")}")
                     callback(false)
                 } else {
-                    Log.d("Login", "2++++ ${documentSnapShot.data!!.getValue("username")}")
                     callback(true)
                 }
             }
@@ -70,7 +90,6 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("Login", "signInWithEmail:success | ${auth.currentUser?.uid}")
-//                    id = auth.currentUser?.uid
                 } else {
                     Log.w("Login", "signInWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT)
@@ -80,10 +99,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        emailField = findViewById(R.id.emailInput)
-        passwordField = findViewById(R.id.passwordInput)
-        loginButton = findViewById(R.id.loginButton)
-        gotoRegisterActivityButton = findViewById(R.id.goto_reg_fab)
+        emailField = findViewById(R.id.emailLoginField)
+        emailInput = findViewById(R.id.emailInput)
+        passwordField = findViewById(R.id.passwordLoginField)
+        passwordInput = findViewById(R.id.passwordInput)
+        loginBtn = findViewById(R.id.loginButton)
+        gotoRegisterBtn = findViewById(R.id.goto_reg_fab)
     }
 
     private fun gotoCreateProfileActivity() {
