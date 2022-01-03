@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quapp.menu_dashboard.UserMenu
 import com.google.android.material.textfield.TextInputEditText
@@ -37,12 +36,15 @@ class LoginActivity : AppCompatActivity() {
 
         loginBtn.setOnClickListener {
             if (!checkFields()) {
-                authenticateWithFirebase(emailInput.text.toString(), passwordInput.text.toString())
-                isLoginCompleted { result ->
-                    if (result) {
-                        gotoMenuActivity()
-                    } else {
-                        gotoCreateProfileActivity()
+                authenticateWithFirebase(emailInput.text.toString(), passwordInput.text.toString()) {
+                    if (it) {
+                        isLoginCompleted { result ->
+                            if (result) {
+                                gotoMenuActivity()
+                            } else {
+                                gotoCreateProfileActivity()
+                            }
+                        }
                     }
                 }
             }
@@ -57,13 +59,13 @@ class LoginActivity : AppCompatActivity() {
         val email = emailInput.text.toString()
         val password = passwordInput.text.toString()
 
-        if (email!!.isEmpty()) {
+        if (email.isEmpty()) {
             emailField.error = "Email can not be empty\n"
             hasErrors = true
         } else {
             emailField.error = ""
         }
-        if (password!!.isEmpty()) {
+        if (password.isEmpty()) {
             passwordField.error = "Password can not be empty\n"
             hasErrors = true
         } else {
@@ -85,15 +87,15 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun authenticateWithFirebase(email: String, password: String) {
+    private fun authenticateWithFirebase(email: String, password: String, cb: (Boolean) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("Login", "signInWithEmail:success | ${auth.currentUser?.uid}")
+                    cb(true)
                 } else {
                     Log.w("Login", "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT)
-                        .show()
+                    cb(false)
                 }
             }
     }

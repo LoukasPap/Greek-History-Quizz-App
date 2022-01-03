@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/avatarView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
 
             android:layout_marginTop="60dp"
 
@@ -32,16 +32,16 @@
 
             android:fontFamily="@font/rubik"
             android:gravity="center_vertical"
-            android:text="username"
+            android:text=""
             android:textColor="@color/dark_liver"
-            android:textSize="25sp"
+            android:textSize="20sp"
 
             app:layout_constraintBottom_toBottomOf="@+id/avatarView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toEndOf="@+id/avatarView"
             app:layout_constraintTop_toTopOf="@+id/avatarView"
-            app:layout_constraintVertical_bias="0.35" />
+            app:layout_constraintVertical_bias="0.3" />
 
         <TextView
             android:id="@+id/levelView"
@@ -51,16 +51,29 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/rubik"
             android:gravity="center_vertical"
-            android:text="level 35"
+            android:text=""
 
 
             android:textColor="@color/dark_liver"
-            android:textSize="17.5sp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@+id/usernameView"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/usernameView"
             app:layout_constraintTop_toBottomOf="@+id/usernameView" />
 
+
+        <ImageButton
+            android:id="@+id/settingsMenu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+            android:background="@color/white"
+            android:src="@drawable/ic_settings"
+            app:layout_constraintBottom_toBottomOf="@id/avatarView"
+            app:layout_constraintEnd_toEndOf="@id/cardView"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toTopOf="@id/avatarView" />
 
 
 

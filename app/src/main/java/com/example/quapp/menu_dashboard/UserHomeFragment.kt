@@ -3,13 +3,16 @@ package com.example.quapp.menu_dashboard
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.MenuRes
+import androidx.appcompat.widget.PopupMenu
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import com.example.quapp.LoginActivity
 import com.example.quapp.QuizQuestionActivity
 import com.example.quapp.R
 import com.google.firebase.auth.FirebaseAuth
@@ -24,29 +27,21 @@ class UserHomeFragment : Fragment() {
     private lateinit var username: TextView
     private lateinit var level: TextView
     private lateinit var card: CardView
+    private lateinit var settingsBtn: ImageButton
 
     private lateinit var userid: String
 
     private lateinit var auth: FirebaseAuth
     private val db = Firebase.firestore
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_user_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initUI()
         auth = Firebase.auth
-
-        avatar = view.findViewById(R.id.avatarView)
-        username = view.findViewById(R.id.usernameView)
-        level = view.findViewById(R.id.levelView)
-        card = view.findViewById(R.id.cardView)
 
         userid = authenticate()
         updateUI(userid)
@@ -55,6 +50,37 @@ class UserHomeFragment : Fragment() {
             val startGame = Intent(activity, QuizQuestionActivity::class.java)
             startActivity(startGame)
         }
+
+        settingsBtn.setOnClickListener { v: View ->
+            showMenu(v, R.menu.settings_popup_menu)
+        }
+    }
+
+    private fun showMenu(v: View, @MenuRes menuRes: Int) {
+        val wrapper = ContextThemeWrapper(context, R.style.SettingMenu_PopupMenu)
+        val popup = PopupMenu(wrapper, v)
+        popup.menuInflater.inflate(menuRes, popup.menu)
+
+        popup.setOnMenuItemClickListener { item: MenuItem? ->
+            when (item!!.itemId) {
+                R.id.account -> {
+                    Toast.makeText(activity,"Coming soon!", Toast.LENGTH_SHORT).show()
+                }
+                R.id.logout -> {
+                    FirebaseAuth.getInstance().signOut()
+                    gotoLoginForm()
+                    Toast.makeText(activity,"Hope we see you soon!", Toast.LENGTH_LONG).show()
+                }
+            }
+            true
+        }
+
+        popup.setOnDismissListener {
+            // Respond to popup being dismissed.
+        }
+
+        // Show the popup menu.
+        popup.show()
     }
 
     private fun updateUI(uid: String) {
@@ -64,9 +90,17 @@ class UserHomeFragment : Fragment() {
                 username.text = documentSnapShot.data?.getValue("username").toString()
                 level.text = "level ".plus(documentSnapShot.data?.getValue("level").toString())
 
-                var selection = loadSelectedAvatar((documentSnapShot.data?.getValue("avatar")).toString())
+                val selection = loadSelectedAvatar((documentSnapShot.data?.getValue("avatar")).toString())
                 avatar.setImageResource(selection)
             }
+    }
+
+    private fun initUI() {
+        settingsBtn = view!!.findViewById(R.id.settingsMenu)
+        avatar = view!!.findViewById(R.id.avatarView)
+        username = view!!.findViewById(R.id.usernameView)
+        level = view!!.findViewById(R.id.levelView)
+        card = view!!.findViewById(R.id.cardView)
     }
 
     private fun loadSelectedAvatar(selection: String): Int {
@@ -91,5 +125,10 @@ class UserHomeFragment : Fragment() {
             Log.d("menu", "Not signed in")
             ""
         }
+    }
+
+    private fun gotoLoginForm() {
+        val loginScreen = Intent(activity, LoginActivity::class.java)
+        startActivity(loginScreen)
     }
 }
