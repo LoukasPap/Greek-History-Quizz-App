@@ -12,69 +12,84 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/avatarView"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/userInfo"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/user_info_stroke"
 
-            android:layout_marginTop="60dp"
-
-            app:layout_constraintHorizontal_bias="0.2"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="10dp"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/usernameView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="@font/rubik"
-            android:gravity="center_vertical"
-            android:text=""
-            android:textColor="@color/dark_liver"
-            android:textSize="20sp"
-
-            app:layout_constraintBottom_toBottomOf="@+id/avatarView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/avatarView"
-            app:layout_constraintTop_toTopOf="@+id/avatarView"
-            app:layout_constraintVertical_bias="0.3" />
-
-        <TextView
-            android:id="@+id/levelView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/rubik"
-            android:gravity="center_vertical"
-            android:text=""
+            app:layout_constraintEnd_toEndOf="parent">
 
 
-            android:textColor="@color/dark_liver"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="@+id/usernameView"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/usernameView"
-            app:layout_constraintTop_toBottomOf="@+id/usernameView" />
+            <ImageView
+                android:id="@+id/avatarView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+
+                android:scaleType="centerCrop"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/usernameView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/rubik"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/dark_liver"
+                android:textSize="20sp"
+
+                app:layout_constraintBottom_toBottomOf="@+id/avatarView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/avatarView"
+                app:layout_constraintTop_toTopOf="@+id/avatarView"
+                app:layout_constraintVertical_bias="0.3" />
+
+            <TextView
+                android:id="@+id/levelView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/rubik"
+                android:gravity="center_vertical"
+                android:text=""
 
 
-        <ImageButton
-            android:id="@+id/settingsMenu"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+                android:textColor="@color/dark_liver"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="@+id/usernameView"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toStartOf="@+id/usernameView"
+                app:layout_constraintTop_toBottomOf="@+id/usernameView" />
 
-            android:background="@color/white"
-            android:src="@drawable/ic_settings"
-            app:layout_constraintBottom_toBottomOf="@id/avatarView"
-            app:layout_constraintEnd_toEndOf="@id/cardView"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toStartOf="@+id/cardView"
-            app:layout_constraintTop_toTopOf="@id/avatarView" />
 
+            <ImageButton
+                android:id="@+id/settingsMenu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:background="@color/white"
+                android:src="@drawable/ic_settings"
+                app:layout_constraintBottom_toBottomOf="@id/avatarView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.95"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/avatarView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <ImageView
@@ -89,8 +104,10 @@
 
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toStartOf="@+id/cardView"
-            app:layout_constraintTop_toBottomOf="@+id/avatarView"
+            app:layout_constraintTop_toBottomOf="@+id/userInfo"
             app:layout_constraintVertical_bias="0.2" />
+
+
 
 
         <androidx.cardview.widget.CardView
@@ -113,7 +130,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/avatarView"
+            app:layout_constraintTop_toBottomOf="@+id/userInfo"
             app:layout_constraintVertical_bias="0.15">
 
 
