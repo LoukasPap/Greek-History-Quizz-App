@@ -1,19 +1,25 @@
 package com.example.quapp
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class AvatarRecyclerAdapter: RecyclerView.Adapter<AvatarRecyclerAdapter.ViewHolder>() {
-    private lateinit var mListener: onItemClickListener
 
-    interface onItemClickListener {
+    private lateinit var mListener: OnItemClickListener
+    private var auth = Firebase.auth
+
+    interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
-    fun setOnItemClickListener(listener: onItemClickListener){
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
         mListener = listener
     }
 
@@ -41,8 +47,7 @@ class AvatarRecyclerAdapter: RecyclerView.Adapter<AvatarRecyclerAdapter.ViewHold
         return avatarImagesArray.size
     }
 
-    @SuppressLint("ResourceAsColor")
-    inner class ViewHolder(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, listener: OnItemClickListener): RecyclerView.ViewHolder(itemView) {
         var itemImage: ImageView = itemView.findViewById(R.id.avatarImage)
         var itemSelected = false
 
@@ -51,24 +56,23 @@ class AvatarRecyclerAdapter: RecyclerView.Adapter<AvatarRecyclerAdapter.ViewHold
                 listener.onItemClick(absoluteAdapterPosition)
             }
 
-
             itemImage.setOnClickListener {
+                updateAvatarSelection(layoutPosition)
                 uncheckRest()
 
                 imgViews.add(layoutPosition, itemImage)
-                itemImage.alpha = 0.7F
-//                itemImage.setColorFilter(Color.argb(255-255/3,255,255, 255))
 
-
+                itemImage.foreground = ContextCompat.getDrawable(itemImage.context, R.drawable.avatar_selected)
                 unselectRestAvatars()
                 avatarSelectedArray[layoutPosition] = true
 
-                android.util.Log.d("ava", "" +
-                        "\n                     " +
-                        "\nPOSITION ${this.layoutPosition} " +
-                        "\nTHIS ITEM ${avatarSelectedArray[this.layoutPosition]}")
-
             }
+        }
+
+        private fun updateAvatarSelection (selection: Int) {
+            val db = Firebase.firestore
+            db.collection("users").document(auth.currentUser!!.uid)
+                .update("avatar", selection)
         }
 
         private fun unselectRestAvatars() {
@@ -77,7 +81,7 @@ class AvatarRecyclerAdapter: RecyclerView.Adapter<AvatarRecyclerAdapter.ViewHold
 
         private fun uncheckRest() {
             for (img in imgViews) {
-                img?.alpha = 1F
+                img?.foreground = null
             }
         }
     }
