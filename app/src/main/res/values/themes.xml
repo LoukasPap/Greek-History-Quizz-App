@@ -13,6 +13,10 @@
         <item name="boxStrokeWidth">2dp</item>
     </style>
 
+    <style name="SettingMenu.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="background">@drawable/custom_popup_background</item>
+        <item name="fontFamily">@font/rubik_light</item>
+    </style>
 </resources>
 
     <!-- Variant: color for toolbar (the part in top of the phone where it shows time, notifications, battery etc.)-->
