@@ -35,7 +35,7 @@
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,7 +81,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
 
-                android:background="@color/white"
+                android:background="@android:color/transparent"
                 android:src="@drawable/ic_settings"
                 app:layout_constraintBottom_toBottomOf="@id/avatarView"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,21 +93,35 @@
 
 
         <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="110dp"
             android:layout_height="110dp"
+
             android:elevation="3dp"
 
             android:src="@drawable/card_icon_vote"
-
             app:layout_constraintBottom_toBottomOf="@+id/cardView"
-            app:layout_constraintEnd_toEndOf="@+id/cardView"
 
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
             app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toStartOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/userInfo"
             app:layout_constraintVertical_bias="0.2" />
 
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:elevation="3dp"
 
+            android:src="@drawable/directons"
+
+            app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <androidx.cardview.widget.CardView
@@ -118,15 +132,16 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="5dp"
-            android:clickable="true"
 
-            app:cardBackgroundColor="@color/black"
+            android:foreground="?android:attr/selectableItemBackground"
+
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="30dp"
             app:cardElevation="2dp"
-
             app:cardMaxElevation="0dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +152,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/casual_match_cardview_gradient_background" />
+                android:background="@drawable/truefalse_match_cardview_gradient_background" />
 
             <com.google.android.material.chip.Chip
                 android:layout_width="wrap_content"
@@ -163,7 +178,7 @@
                 android:fontFamily="@font/rubik_light"
                 android:gravity="bottom|start"
 
-                android:text="It's 50-50 to guess it"
+                android:text="The odds are 50-50"
 
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -179,6 +194,96 @@
                 android:letterSpacing="0.1"
 
                 android:text="True or False"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="5dp"
+            android:clickable="true"
+
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="2dp"
+
+            app:cardMaxElevation="0dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintVertical_bias="0.15">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/multiplechoice_match_cardview_gradient_background" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:clickable="false"
+
+                android:fontFamily="@font/sniglet"
+                android:text="medium"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="#F0A000" />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+
+                android:layout_gravity="start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="35dp"
+                android:clickable="false"
+
+                android:fontFamily="@font/sniglet"
+                android:text="coming soon"
+                android:textColor="#BD21D7"
+                app:chipBackgroundColor="#FFFFFF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/rubik_light"
+                android:gravity="bottom|start"
+
+                android:text="Hope you know some history"
+
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/rubik_bold"
+                android:letterSpacing="0.1"
+
+                android:text="Multiple Choice"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
