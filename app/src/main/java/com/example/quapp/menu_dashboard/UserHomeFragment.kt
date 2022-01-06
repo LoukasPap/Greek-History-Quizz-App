@@ -49,6 +49,7 @@ class UserHomeFragment : Fragment() {
         card.setOnClickListener {
             val startGame = Intent(activity, QuizQuestionActivity::class.java)
             startActivity(startGame)
+            activity?.overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out)
         }
 
         settingsBtn.setOnClickListener { v: View ->
