@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.quapp.menu_dashboard.UserMenu
 import com.google.android.material.textfield.TextInputEditText
@@ -95,6 +96,7 @@ class LoginActivity : AppCompatActivity() {
                     cb(true)
                 } else {
                     Log.w("Login", "signInWithEmail:failure", task.exception)
+                    Toast.makeText(this, "Authentication failed", Toast.LENGTH_LONG).show()
                     cb(false)
                 }
             }
