@@ -181,12 +181,10 @@ class QuizQuestionActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setQuestion() {
         val question = questionList!![currentPos - 1]
-
         defaultOptionsView()
 
         if (currentPos == questionList!!.size) {
             skipBtn.text = "Finish"
-            Toast.makeText(this, "last one", Toast.LENGTH_SHORT).show()
         }
         questionText.text = question.text
 

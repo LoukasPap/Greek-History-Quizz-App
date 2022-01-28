@@ -25,7 +25,7 @@ open class UserMenu: AppCompatActivity() {
         chipNavBar.setOnItemSelectedListener {
             fragment = when (it) {
                 R.id.bottom_nav_history -> UserHistoryFragment()
-                R.id.bottom_nav_stats -> UserStatsFragment()
+//                R.id.bottom_nav_stats -> UserStatsFragment()
                 R.id.bottom_nav_home -> UserHomeFragment()
                 else -> null
             }

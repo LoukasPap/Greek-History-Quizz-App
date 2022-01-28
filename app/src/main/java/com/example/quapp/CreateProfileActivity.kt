@@ -25,7 +25,6 @@ class CreateProfileActivity : AppCompatActivity() {
     private lateinit var auth : FirebaseAuth
 
     private var layoutManager: RecyclerView.LayoutManager?= null
-//    private var adapter: RecyclerView.Adapter<AvatarRecyclerAdapter.ViewHolder>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +42,7 @@ class CreateProfileActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         adapter.setOnItemClickListener(object : AvatarRecyclerAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
-                Toast.makeText(this@CreateProfileActivity, "Selected item no.$position", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@CreateProfileActivity, "Selected item no.$position", Toast.LENGTH_SHORT).show()
 
             }
         })

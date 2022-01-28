@@ -4,8 +4,6 @@
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
-<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
-<!--        <item name="android:statusBarColor" tools:targetApi="l">@color/primary</item>-->
     </style>
 
     <style name="register_field" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
